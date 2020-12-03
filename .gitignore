@@ -14,8 +14,12 @@ xp
 # Distribution / packaging
 .Python
 ev.sh
+train.log
+tb/
+eval/
+data/
 */env/
-
+pretrained_models/
 new_checkpoints/
 tb/
 build/

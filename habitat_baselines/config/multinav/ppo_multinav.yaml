@@ -7,9 +7,9 @@ VIDEO_OPTION: []
 TENSORBOARD_DIR: "tb/train"
 TENSORBOARD_DIR_EVAL: "eval"
 VIDEO_DIR: "video_dir"
-TEST_EPISODE_COUNT: 2
+TEST_EPISODE_COUNT: 1000
 EVAL_CKPT_PATH_DIR: "pretrained_models"
-NUM_PROCESSES: 1
+NUM_PROCESSES: 18
 SENSORS: ["RGB_SENSOR", "DEPTH_SENSOR"]
 CHECKPOINT_FOLDER: "cpt"
 NUM_UPDATES: 300000
@@ -27,8 +27,8 @@ RL:
   PPO:
     # ppo params
     clip_param: 0.2
-    ppo_epoch: 1
-    num_mini_batch: 1
+    ppo_epoch: 2
+    num_mini_batch: 4
     value_loss_coef: 0.5
     entropy_coef: 0.01
     lr: 2.5e-4

@@ -85,6 +85,12 @@ Set the dataset path in `configs/tasks/multinav_mp3d.yaml` file. Then run the fo
 python habitat_baselines/run.py --exp-config habitat_baselines/config/multinav/ppo_multinav.yaml --run-type train
 ```
 ### Pre-trained models
+
+```
+mkdir pretrained_models
+``` 
+Download relevant model checkpoint and place inside `pretrained_models` directory created above. 
+
 | Model      | Checkpoint URL                                                                               |
 |------------|:--------------------------------------------------------------------------------------------:|
 | NoMap      | [link](https://drive.google.com/file/d/1gqco6r0s2fegftMFgLoFSC2RU6KLgiRY/view?usp=sharing)   |
@@ -94,11 +100,13 @@ python habitat_baselines/run.py --exp-config habitat_baselines/config/multinav/p
 
 ### Evaluation
 
-To evaluate the pretrained model on the 3-ON test dataset, run the following command from the root folder (`multi-on/`).
+To evaluate the `ProjNeuralMap` pretrained model on the 3-ON test dataset, run the following command from the root folder (`multiON/`).
 
 ```
-python habitat_baselines/run.py --exp-config habitat_baselines/config/multinav/ppo_multinav.yaml --run-type eval
+python habitat_baselines/run.py --exp-config habitat_baselines/config/multinav/ppo_multinav.yaml --agent-type proj-neural --run-type eval
 ``` 
+Average evaluation metrics are printed on the console when evaluation ends. Detailed metrics are placed in `eval/metrics` directory. 
+
 ## Citation
 >Saim Wani*, Shivansh Patel*, Unnat Jain*, Angel X. Chang, Manolis Savva, 2020. MultiON: Benchmarking Semantic Map Memory using Multi-Object Navigation in Neural Information Processing Systems (NeurIPS). [PDF](https://shivanshpatel35.github.io/multi-ON/resources/MultiON.pdf)
 

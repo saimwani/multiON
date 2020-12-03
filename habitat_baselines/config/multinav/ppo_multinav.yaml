@@ -1,0 +1,51 @@
+BASE_TASK_CONFIG_PATH: "configs/tasks/multinav_mp3d.yaml"
+TRAINER_NAME: "ppo"
+ENV_NAME: "NavRLEnv"
+SIMULATOR_GPU_ID: 0
+TORCH_GPU_ID: 1
+VIDEO_OPTION: []
+TENSORBOARD_DIR: "tb/train"
+TENSORBOARD_DIR_EVAL: "tb/eval"
+VIDEO_DIR: "video_dir"
+TEST_EPISODE_COUNT: 2
+EVAL_CKPT_PATH_DIR: "pretrained_models"
+NUM_PROCESSES: 1
+SENSORS: ["RGB_SENSOR", "DEPTH_SENSOR"]
+CHECKPOINT_FOLDER: "cpt"
+NUM_UPDATES: 300000
+LOG_INTERVAL: 1
+CHECKPOINT_INTERVAL: 500
+
+RL:
+  SUCCESS_REWARD: 3.0
+  SUBSUCCESS_REWARD: 3.0
+  FALSE_FOUND_PENALTY: False
+  FALSE_FOUND_PENALTY_VALUE: 2.5
+  OBJECT_CATEGORY_EMBEDDING_SIZE: 32
+  PREVIOUS_ACTION_EMBEDDING_SIZE: 32
+  PREVIOUS_ACTION: True
+  PPO:
+    # ppo params
+    clip_param: 0.2
+    ppo_epoch: 1
+    num_mini_batch: 1
+    value_loss_coef: 0.5
+    entropy_coef: 0.01
+    lr: 2.5e-4
+    eps: 1e-5
+    max_grad_norm: 0.2
+    num_steps: 128
+    use_gae: True
+    gamma: 0.99
+    tau: 0.95
+    use_linear_clip_decay: True
+    use_linear_lr_decay: True
+    reward_window_size: 50
+    use_normalized_advantage: False
+    hidden_size: 768
+  MAPS:
+    egocentric_map_size: 13 # 3 x 3
+    global_map_size: 275
+    global_map_depth: 32
+    coordinate_min: -110.0
+    coordinate_max:  110.0

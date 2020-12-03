@@ -1,0 +1,6 @@
+tqdm==4.45.0
+torch_scatter==2.0.3
+matplotlib==3.2.1
+ifcfg==0.21
+opencv_python==3.4.4.19
+attr==0.3.1

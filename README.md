@@ -73,16 +73,22 @@ Multi-ON/
           ...
 
 ```				
-Download `map300.pickle` file from [here](https://drive.google.com/file/d/1vmIfB7Jhj_RzWxJM7woPrfAorbBOCD73/view?usp=sharing) and place it in the root folder (`multi-on/`) 
+
+### Downloading pre-processed scene maps
+
+```
+mkdir oracle_maps
+```
+Download pre-processed occupancy map data for Matterport3D scenes from [here](https://drive.google.com/file/d/1vmIfB7Jhj_RzWxJM7woPrfAorbBOCD73/view?usp=sharing) and place it in `oracle_maps` directory created above.  
 
 ## Usage
 
 ### Training
 
-Set the dataset path in `configs/tasks/multinav_mp3d.yaml` file. Then run the following command - 
+For training `ProjNeuralMap` agent, run this: - 
 
 ```
-python habitat_baselines/run.py --exp-config habitat_baselines/config/multinav/ppo_multinav.yaml --run-type train
+python habitat_baselines/run.py --exp-config habitat_baselines/config/multinav/ppo_multinav.yaml --agent-type proj-neural --run-type train
 ```
 ### Pre-trained models
 

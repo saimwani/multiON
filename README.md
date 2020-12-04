@@ -44,11 +44,22 @@ cd multi-on
 pip install -r requirements.txt
 ```
 
-Download Matterport3D data for Habitat using the instructions here: https://github.com/facebookresearch/habitat-api#data
+Download Matterport3D data for Habitat by following the instructions mentioned [here](https://github.com/facebookresearch/habitat-api#data)
 
-Download multiON dataset from [this](https://drive.google.com/drive/folders/1x_y_Qo1XjKRIwd6mBi4nkM1ptzc-bhw_?usp=sharing) link
+Run the following commands to download multiON dataset and cached oracle maps:
+```
+cd data/datasets/
+wget -rO multinav_dataset "https://www.dropbox.com/sh/qduhl2myabl4nos/AAD9RqDXyOCcyRnQP0Tkx-M_a?dl=0?dl=1"
+unzip multinav_dataset
+rm multinav_dataset
+cd ../../
+mkdir oracle_maps
+cd oracle_maps
+wget -O map300.pickle "https://www.dropbox.com/s/j25enox7kv76m3y/map300.pickle?dl=0?dl=1"
+cd ../
+```
 
-The Matterport scene dataset and multiON dataset should be placed in data folder in the following format:
+The Matterport scene dataset and multiON dataset should be in data folder in the following format:
 
 ```
 Multi-ON/
@@ -60,26 +71,19 @@ Multi-ON/
 					1LXtFkjw3qL.navmesh
 					...
 				...
-    datasets/
-      multinav/
-        3_ON/
-          train/
+      datasets/
+        multinav/
+          3_ON/
+            train/
+              ...
+            val/
+              val.json.gz
+          2_ON
             ...
-          val/
-            val.json.gz
-        2_ON
-          ...
-        1_ON
-          ...
+          1_ON
+            ...
 
 ```				
-
-### Downloading pre-processed scene maps
-
-```
-mkdir oracle_maps
-```
-Download pre-processed occupancy map data for Matterport3D scenes from [here](https://drive.google.com/file/d/1vmIfB7Jhj_RzWxJM7woPrfAorbBOCD73/view?usp=sharing) and place it in `oracle_maps` directory created above.  
 
 ## Usage
 
@@ -120,7 +124,7 @@ Average evaluation metrics are printed on the console when evaluation ends. Deta
 ```
   @inproceedings{wani2020multion,
   title={Multi-ON: Benchmarking Semantic Map Memory using Multi-Object Navigation},
-  author={Saim Wani* and Shivansh Patel* and Unnat Jain* and Angel X. Chang and Manolis Savva},
+  author={Saim Wani and Shivansh Patel and Unnat Jain and Angel X. Chang and Manolis Savva},
   booktitle={Neural Information Processing Systems (NeurIPS)},
   year={2020},
 }

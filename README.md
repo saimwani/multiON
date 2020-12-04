@@ -49,9 +49,8 @@ Download Matterport3D data for Habitat by following the instructions mentioned [
 Run the following commands to download multiON dataset and cached oracle maps:
 ```
 cd data/datasets/
-wget -rO multinav_dataset "https://www.dropbox.com/sh/qduhl2myabl4nos/AAD9RqDXyOCcyRnQP0Tkx-M_a?dl=0?dl=1"
-unzip multinav_dataset
-rm multinav_dataset
+wget -O multinav.zip "https://www.dropbox.com/s/src4dy0d5vnbpb8/multinav.zip?dl=0?dl=1"
+unzip multinav.zip && rm multinav.zip
 cd ../../
 mkdir oracle_maps
 cd oracle_maps

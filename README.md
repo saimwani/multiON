@@ -105,11 +105,11 @@ Download relevant model checkpoint and place inside `pretrained_models` director
 
 | Pretrained Model | Run                                                                                    |
 |------------      |:--------------------------------------------------------------------------------------:|
-| NoMap            | `wget -O ckpt.pth "https://www.dropbox.com/s/k431devrru88cgf/ckpt.40.pth?dl=0?dl=1"`   |
-| ProjNeural       | `wget -O ckpt.pth "https://www.dropbox.com/s/ziallf9eoo1i1sy/ckpt.40.pth?dl=0?dl=1"`   |
-| ObjRecog         | `wget -O ckpt.pth "https://www.dropbox.com/s/t1bkrc0qdzc8sgs/ckpt.39.pth?dl=0?dl=1"`   |
-| OracleEgoMap     | `wget -O ckpt.pth "https://www.dropbox.com/s/8uiujq0wh35u71g/ckpt.18.pth?dl=0?dl=1"`   |
-| OracleMap        | `wget -O ckpt.pth "https://www.dropbox.com/s/9io3qyaboobc9e8/ckpt.19.pth?dl=0?dl=1"`   |
+| NoMap            |`wget -O ckpt.pth "https://www.dropbox.com/s/k431devrru88cgf/ckpt.40.pth?dl=0?dl=1"`|
+| ProjNeural       |`wget -O ckpt.pth "https://www.dropbox.com/s/ziallf9eoo1i1sy/ckpt.40.pth?dl=0?dl=1"`|
+| ObjRecog         |`wget -O ckpt.pth "https://www.dropbox.com/s/t1bkrc0qdzc8sgs/ckpt.39.pth?dl=0?dl=1"`|
+| OracleEgoMap     |`wget -O ckpt.pth "https://www.dropbox.com/s/8uiujq0wh35u71g/ckpt.18.pth?dl=0?dl=1"`|
+| OracleMap        |`wget -O ckpt.pth "https://www.dropbox.com/s/9io3qyaboobc9e8/ckpt.19.pth?dl=0?dl=1"`|
 
 ### Evaluation
 

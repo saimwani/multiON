@@ -49,7 +49,9 @@ Download Matterport3D data for Habitat by following the instructions mentioned [
 
 Run the following commands to download multiON dataset and cached oracle maps:
 ```
-cd data/datasets/
+cd data
+mkdir datasets
+cd datasets
 wget -O multinav.zip "https://www.dropbox.com/s/src4dy0d5vnbpb8/multinav.zip?dl=0?dl=1"
 unzip multinav.zip && rm multinav.zip
 cd ../../
@@ -101,12 +103,13 @@ mkdir pretrained_models
 ``` 
 Download relevant model checkpoint and place inside `pretrained_models` directory created above. 
 
-| Model      | Checkpoint URL                                                                               |
-|------------|:--------------------------------------------------------------------------------------------:|
-| NoMap      | [link](https://drive.google.com/file/d/1gqco6r0s2fegftMFgLoFSC2RU6KLgiRY/view?usp=sharing)   |
-| ProjNeural | [link](https://drive.google.com/file/d/1qpZ4dUNbGE9PpdDB2Agzyb7k2ZN0vZjJ/view?usp=sharing)   |
-| ObjRecog   | [link]()                                                                                     |
-| OracleMap  | [link]()                                                                                     |
+| Pretrained Model | Run                                                                                    |
+|------------      |:--------------------------------------------------------------------------------------:|
+| NoMap            | `wget -O ckpt.pth "https://www.dropbox.com/s/k431devrru88cgf/ckpt.40.pth?dl=0?dl=1"`   |
+| ProjNeural       | `wget -O ckpt.pth "https://www.dropbox.com/s/ziallf9eoo1i1sy/ckpt.40.pth?dl=0?dl=1"`   |
+| ObjRecog         | `wget -O ckpt.pth "https://www.dropbox.com/s/t1bkrc0qdzc8sgs/ckpt.39.pth?dl=0?dl=1"`   |
+| OracleEgoMap     | `wget -O ckpt.pth "https://www.dropbox.com/s/8uiujq0wh35u71g/ckpt.18.pth?dl=0?dl=1"`   |
+| OracleMap        | `wget -O ckpt.pth "https://www.dropbox.com/s/9io3qyaboobc9e8/ckpt.19.pth?dl=0?dl=1"`   |
 
 ### Evaluation
 

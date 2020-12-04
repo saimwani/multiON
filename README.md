@@ -39,12 +39,12 @@ Install pytorch from https://pytorch.org/ according to your machine configuratio
 Clone the repository and install the requirements:
 
 ```
-git clone https://github.com/saimwani/multi-on.git
-cd multi-on
+git clone https://github.com/saimwani/multiON
+cd multiON
 pip install -r requirements.txt
 ```
 
-Download Matterport3D data for Habitat using the instructions here: https://github.com/facebookresearch/habitat-api#data
+Download Matterport3D data for Habitat using the instructions provided here: https://github.com/facebookresearch/habitat-api#data
 
 Download multiON dataset from [this](https://drive.google.com/drive/folders/1x_y_Qo1XjKRIwd6mBi4nkM1ptzc-bhw_?usp=sharing) link
 
@@ -52,7 +52,7 @@ The Matterport scene dataset and multiON dataset should be placed in data folder
 
 ```
 Multi-ON/
-	data/
+  data/
 	  scene_datasets/
 			mp3d/
 				1LXtFkjw3qL/
@@ -120,11 +120,11 @@ Average evaluation metrics are printed on the console when evaluation ends. Deta
 ```
   @inproceedings{wani2020multion,
   title={Multi-ON: Benchmarking Semantic Map Memory using Multi-Object Navigation},
-  author={Saim Wani* and Shivansh Patel* and Unnat Jain* and Angel X. Chang and Manolis Savva},
+  author={Saim Wani and Shivansh Patel and Unnat Jain and Angel X. Chang and Manolis Savva},
   booktitle={Neural Information Processing Systems (NeurIPS)},
   year={2020},
 }
 ```
 
 ## Acknowledgements
-This repository is built upon habitat-lab's(https://github.com/facebookresearch/habitat-lab) repository.
+This repository is built upon [Habitat Lab](https://github.com/facebookresearch/habitat-lab).

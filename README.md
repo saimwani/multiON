@@ -39,12 +39,13 @@ Install pytorch from https://pytorch.org/ according to your machine configuratio
 Clone the repository and install the requirements:
 
 ```
-git clone https://github.com/saimwani/multi-on.git
-cd multi-on
+git clone https://github.com/saimwani/multiON
+cd multiON
 pip install -r requirements.txt
 ```
 
 Download Matterport3D data for Habitat by following the instructions mentioned [here](https://github.com/facebookresearch/habitat-api#data)
+
 
 Run the following commands to download multiON dataset and cached oracle maps:
 ```
@@ -62,7 +63,7 @@ The Matterport scene dataset and multiON dataset should be in data folder in the
 
 ```
 Multi-ON/
-	data/
+  data/
 	  scene_datasets/
 			mp3d/
 				1LXtFkjw3qL/
@@ -130,4 +131,4 @@ Average evaluation metrics are printed on the console when evaluation ends. Deta
 ```
 
 ## Acknowledgements
-This repository is built upon habitat-lab's(https://github.com/facebookresearch/habitat-lab) repository.
+This repository is built upon [Habitat Lab](https://github.com/facebookresearch/habitat-lab).

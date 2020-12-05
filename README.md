@@ -3,6 +3,7 @@ This repository hosts the code for the following paper:
 * Saim Wani*, Shivansh Patel*, Unnat Jain*, Angel X. Chang, Manolis Savva, _MultiON: Benchmarking Semantic Map Memory using Multi-Object Navigation_ in NeurIPS, 2020 ([PDF](https://shivanshpatel35.github.io/multi-ON/resources/MultiON.pdf))
 
 [![Conference](http://img.shields.io/badge/NeurIPS-2020-4b44ce.svg)](https://nips.cc/)
+[![Supports Habitat Lab](https://img.shields.io/static/v1?label=supports&message=Habitat%20Lab&color=informational&link=https://github.com/facebookresearch/habitat-lab)](https://github.com/facebookresearch/habitat-lab)
 
 Project Website: https://shivanshpatel35.github.io/multi-ON/
 
@@ -109,7 +110,7 @@ Agent type for different agents are listed in the table below
 | ObjRecogMap   | `obj-recog`      |
 
 
-Choose the dataset to train on [here](https://github.com/saimwani/multiON/blob/main/configs/tasks/multinav_mp3d.yaml#L48).Then run the following command: 
+Specify the dataset to train on [here](https://github.com/saimwani/multiON/blob/main/configs/tasks/multinav_mp3d.yaml#L48). Then run the following command: 
 
 ```
 python habitat_baselines/run.py --exp-config habitat_baselines/config/multinav/ppo_multinav.yaml --agent-type proj-neural --run-type train
@@ -127,7 +128,7 @@ To download a pre-trained agent model, run it's corresponding command
 | NoMap            |`wget -O pretrained_models/ckpt0.pth "https://www.dropbox.com/s/k431devrru88cgf/ckpt.40.pth?dl=0?dl=1"`|
 | ProjNeural       |`wget -O pretrained_models/ckpt1.pth "https://www.dropbox.com/s/ziallf9eoo1i1sy/ckpt.40.pth?dl=0?dl=1"`|
 | ObjRecog         |`wget -O pretrained_models/ckpt2.pth "https://www.dropbox.com/s/t1bkrc0qdzc8sgs/ckpt.39.pth?dl=0?dl=1"`|
-| OracleEgoMap     |`wget -O pretrained_models/ckpt3.pth "https://www.dropbox.com/s/8uiujq0wh35u71g/ckpt.18.pth?dl=0?dl=1"`|
+| OracleEgoMap     |`wget -O pretrained_models/ckpt3.pth "https://www.dropbox.com/s/urp4lpozres07f5/ckpt.40.pth?dl=0?dl=1"`|
 | OracleMap        |`wget -O pretrained_models/ckpt4.pth "https://www.dropbox.com/s/9io3qyaboobc9e8/ckpt.19.pth?dl=0?dl=1"`|
 
 ### Evaluation

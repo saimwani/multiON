@@ -1262,6 +1262,67 @@ class TopDownMap(Measure):
 
 
 @registry.register_measure
+class FowMap(Measure):
+    r"""FOW map measure
+    """
+
+    def __init__(
+        self, *args: Any, sim: Simulator, config: Config, **kwargs: Any
+    ):
+        self._sim = sim
+        self._config = config
+        self._map_resolution = (300, 300)
+        self._coordinate_min = -120.3241-1e-6
+        self._coordinate_max = 120.0399+1e-6
+        super().__init__()
+
+    def _get_uuid(self, *args: Any, **kwargs: Any):
+        return "fow_map"
+
+    def reset_metric(self, *args: Any, episode, task, **kwargs: Any):
+        self._metric = None
+        self._top_down_map = task.sceneMap
+        self._fog_of_war_mask = np.zeros_like(self._top_down_map)
+        self.update_metric(*args, episode=episode, task=task, **kwargs)
+
+    def update_metric(self, *args: Any, episode, task: EmbodiedTask, **kwargs: Any):
+        agent_position = self._sim.get_agent_state().position
+        a_x, a_y = maps.to_grid(
+            agent_position[0],
+            agent_position[2],
+            self._coordinate_min,
+            self._coordinate_max,
+            self._map_resolution,
+        )
+        agent_position = np.array([a_x, a_y])
+
+        self._fog_of_war_mask = fog_of_war.reveal_fog_of_war(
+            self._top_down_map,
+            self._fog_of_war_mask,
+            agent_position,
+            self.get_polar_angle(),
+            fov=self._config.FOV,
+            max_line_len=self._config.VISIBILITY_DIST
+            * max(self._map_resolution)
+            / (self._coordinate_max - self._coordinate_min),
+        )
+
+        self._metric = self._fog_of_war_mask
+
+
+    def get_polar_angle(self):
+        agent_state = self._sim.get_agent_state()
+        # quaternion is in x, y, z, w format
+        ref_rotation = agent_state.rotation
+        heading_vector = quaternion_rotate_vector(
+            ref_rotation.inverse(), np.array([0, 0, -1])
+        )
+        phi = cartesian_to_polar(-heading_vector[2], heading_vector[0])[1]
+        x_y_flip = -np.pi / 2
+        return np.array(phi) + x_y_flip
+
+
+@registry.register_measure
 class DistanceToGoal(Measure):
     """The measure calculates a distance towards the goal.
     """

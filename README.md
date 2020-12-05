@@ -75,25 +75,23 @@ The Matterport scene dataset and multiON dataset should be in data folder in the
 ```
 multiON/
   data/
-	  scene_datasets/
-			mp3d/
-				1LXtFkjw3qL/
-					1LXtFkjw3qL.glb
-					1LXtFkjw3qL.navmesh
-					...
-				...
-      datasets/
-        multinav/
-          3_ON/
-            train/
-              ...
-            val/
-              val.json.gz
-          2_ON
+    scene_datasets/
+      mp3d/
+        1LXtFkjw3qL/
+          1LXtFkjw3qL.glb
+          1LXtFkjw3qL.navmesh
+          ...
+    datasets/
+      multinav/
+        3_ON/
+          train/
             ...
-          1_ON
-            ...
-
+          val/
+            val.json.gz
+        2_ON
+          ...
+        1_ON
+          ...
 ```				
 
 ## Usage

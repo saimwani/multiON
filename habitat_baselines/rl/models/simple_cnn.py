@@ -300,10 +300,10 @@ class MapCNN(nn.Module):
         output_size: The size of the embedding vector
     """
 
-    def __init__(self, map_size, output_size):
+    def __init__(self, map_size, output_size, object_only = False):
         super().__init__()
        
-        self._n_input_map = 32
+        self._n_input_map = 16 if object_only else 32
         # kernel size for different CNN layers
         self._cnn_layers_kernel_size = [(4, 4), (3, 3), (2, 2)]
 

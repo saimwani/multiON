@@ -416,13 +416,17 @@ class BaselineNetOracle(Net):
         self.use_previous_action = use_previous_action
 
         self.visual_encoder = RGBCNNOracle(observation_space, 512)
-        if agent_type != "no-map":
+        if agent_type == "oracle":
             self.map_encoder = MapCNN(50, 256)
             self.occupancy_embedding = nn.Embedding(3, 16)
             self.object_embedding = nn.Embedding(9, 16)
             self.goal_embedding = nn.Embedding(9, object_category_embedding_size)
-        else:
+        elif agent_type == "no-map":
             self.goal_embedding = nn.Embedding(8, object_category_embedding_size)
+        elif agent_type == "oracle-ego":
+            self.map_encoder = MapCNN(50, 256, object_only = True)
+            self.object_embedding = nn.Embedding(10, 16)
+            self.goal_embedding = nn.Embedding(9, object_category_embedding_size)
         
         self.action_embedding = nn.Embedding(4, previous_action_embedding_size)
 
@@ -464,7 +468,8 @@ class BaselineNetOracle(Net):
         if self.agent_type != "no-map":
             global_map_embedding = []
             global_map = observations['semMap']
-            global_map_embedding.append(self.occupancy_embedding(global_map[:, :, :, 0].type(torch.LongTensor).to(self.device).view(-1)).view(bs, 50, 50 , -1))
+            if self.agent_type == "oracle":
+                global_map_embedding.append(self.occupancy_embedding(global_map[:, :, :, 0].type(torch.LongTensor).to(self.device).view(-1)).view(bs, 50, 50 , -1))
             global_map_embedding.append(self.object_embedding(global_map[:, :, :, 1].type(torch.LongTensor).to(self.device).view(-1)).view(bs, 50, 50, -1))
             global_map_embedding = torch.cat(global_map_embedding, dim=3)
             map_embed = self.map_encoder(global_map_embedding)

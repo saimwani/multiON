@@ -134,6 +134,9 @@ class Env:
         if config.TRAINER_NAME in ["oracle", "oracle-ego"]:
             with open('oracle_maps/map300.pickle', 'rb') as handle:
                 self.mapCache = pickle.load(handle)
+        if config.TRAINER_NAME == "oracle-ego":
+            for x,y in self.mapCache.items():
+                self.mapCache[x] += 1
 
     @property
     def current_episode(self) -> Type[Episode]:
@@ -260,6 +263,7 @@ class Env:
         if self._config.TRAINER_NAME in ["oracle", "oracle-ego"]:
             self.currMap = np.copy(self.mapCache[self.current_episode.scene_id])
             self.task.occMap = self.currMap[:,:,0]
+            self.task.sceneMap = self.currMap[:,:,0]
 
 
         self._task.measurements.reset_measures(
@@ -271,16 +275,22 @@ class Env:
                 loc0 = self.current_episode.goals[i].position[0]
                 loc2 = self.current_episode.goals[i].position[2]
                 grid_loc = self.conv_grid(loc0, loc2)
-                self.currMap[grid_loc[0]-1:grid_loc[0]+2, grid_loc[1]-1:grid_loc[1]+2, 1] = object_to_datset_mapping[self.current_episode.goals[i].object_category] + 1
+                objIndexOffset = 1 if self._config.TRAINER_NAME == "oracle" else 2
+                self.currMap[grid_loc[0]-1:grid_loc[0]+2, grid_loc[1]-1:grid_loc[1]+2, 1] = object_to_datset_mapping[self.current_episode.goals[i].object_category] + objIndexOffset
 
             currPix = self.conv_grid(observations["agent_position"][0], observations["agent_position"][2])  ## Explored area marking
-    
 
-            patch = self.currMap[currPix[0]-40:currPix[0]+40, currPix[1]-40:currPix[1]+40,:]
+            if self._config.TRAINER_NAME == "oracle-ego":
+                self.expose = np.repeat(
+                    self.task.measurements.measures["fow_map"].get_metric()[:, :, np.newaxis], 3, axis = 2
+                )
+                patch = self.currMap * self.expose
+            elif self._config.TRAINER_NAME == "oracle":
+                patch = self.currMap
+
+            patch = patch[currPix[0]-40:currPix[0]+40, currPix[1]-40:currPix[1]+40,:]
             patch = ndimage.interpolation.rotate(patch, -(observations["heading"][0] * 180/np.pi) + 90, order=0, reshape=False)
-
             observations["semMap"] = patch[40-25:40+25, 40-25:40+25, :]
-
         return observations
 
     def _update_step_stats(self) -> None:
@@ -327,7 +337,14 @@ class Env:
 
         if self._config.TRAINER_NAME in ["oracle", "oracle-ego"]:
             currPix = self.conv_grid(observations["agent_position"][0], observations["agent_position"][2])  ## Explored area marking
-            patch = self.currMap[currPix[0]-40:currPix[0]+40, currPix[1]-40:currPix[1]+40,:]
+            if self._config.TRAINER_NAME == "oracle-ego":
+                self.expose = np.repeat(
+                    self.task.measurements.measures["fow_map"].get_metric()[:, :, np.newaxis], 3, axis = 2
+                )
+                patch = self.currMap * self.expose
+            elif self._config.TRAINER_NAME == "oracle":
+                patch = self.currMap
+            patch = patch[currPix[0]-40:currPix[0]+40, currPix[1]-40:currPix[1]+40,:]
             patch = ndimage.interpolation.rotate(patch, -(observations["heading"][0] * 180/np.pi) + 90, order=0, reshape=False)
             observations["semMap"] = patch[40-25:40+25, 40-25:40+25, :]
 

@@ -160,6 +160,13 @@ _C.TASK.MSPL.TYPE = "MSPL"
 _C.TASK.PSPL = CN()
 _C.TASK.PSPL.TYPE = "PSPL"
 
+### FOW ####
+
+_C.TASK.FOW_MAP = CN()
+_C.TASK.FOW_MAP.TYPE = "FowMap"
+_C.TASK.FOW_MAP.VISIBILITY_DIST = 6.0
+_C.TASK.FOW_MAP.FOV = 80
+
 # -----------------------------------------------------------------------------
 # TopDownMap MEASUREMENT
 # -----------------------------------------------------------------------------

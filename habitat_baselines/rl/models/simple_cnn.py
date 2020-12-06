@@ -300,15 +300,20 @@ class MapCNN(nn.Module):
         output_size: The size of the embedding vector
     """
 
-    def __init__(self, map_size, output_size, object_only = False):
+    def __init__(self, map_size, output_size, agent_type):
         super().__init__()
        
-        self._n_input_map = 16 if object_only else 32
-        # kernel size for different CNN layers
-        self._cnn_layers_kernel_size = [(4, 4), (3, 3), (2, 2)]
+        self._n_input_map = 16 if agent_type == "oracle-ego" else 32
 
-        # strides for different CNN layers
-        self._cnn_layers_stride = [(2, 2), (1, 1), (1, 1)]
+
+        if agent_type in ["oracle", "oracle-ego", "no-map"]:
+            # kernel size for different CNN layers
+            self._cnn_layers_kernel_size = [(4, 4), (3, 3), (2, 2)]
+            # strides for different CNN layers
+            self._cnn_layers_stride = [(2, 2), (1, 1), (1, 1)]
+        else:
+            self._cnn_layers_kernel_size = [(6, 6), (4, 4), (2, 2)]
+            self._cnn_layers_stride = [(3, 3), (2, 2), (1, 1)]
 
         cnn_dims = np.array(
             [map_size, map_size], dtype=np.float32

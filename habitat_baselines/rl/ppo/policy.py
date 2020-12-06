@@ -258,7 +258,7 @@ class BaselineNetNonOracle(Net):
         self.global_map_depth = global_map_depth
 
         self.visual_encoder = RGBCNNNonOracle(observation_space, hidden_size)
-        self.map_encoder = MapCNN(51, 256)        
+        self.map_encoder = MapCNN(51, 256, "non-oracle")        
 
         self.projection = Projection(egocentric_map_size, global_map_size, 
             device, coordinate_min, coordinate_max
@@ -417,16 +417,17 @@ class BaselineNetOracle(Net):
 
         self.visual_encoder = RGBCNNOracle(observation_space, 512)
         if agent_type == "oracle":
-            self.map_encoder = MapCNN(50, 256)
+            self.map_encoder = MapCNN(50, 256, agent_type)
             self.occupancy_embedding = nn.Embedding(3, 16)
             self.object_embedding = nn.Embedding(9, 16)
             self.goal_embedding = nn.Embedding(9, object_category_embedding_size)
         elif agent_type == "no-map":
             self.goal_embedding = nn.Embedding(8, object_category_embedding_size)
         elif agent_type == "oracle-ego":
-            self.map_encoder = MapCNN(50, 256, object_only = True)
+            self.map_encoder = MapCNN(50, 256, agent_type)
             self.object_embedding = nn.Embedding(10, 16)
             self.goal_embedding = nn.Embedding(9, object_category_embedding_size)
+            
         
         self.action_embedding = nn.Embedding(4, previous_action_embedding_size)
 

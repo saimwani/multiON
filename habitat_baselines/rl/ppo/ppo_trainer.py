@@ -645,7 +645,7 @@ class PPOTrainerNO(BaseRLTrainerNonOracle):
             )
 
             # Reset global map
-            test_global_map_visualization = not_done_masks.unsqueeze(2).unsqueeze(3).cpu() * test_global_map_visualization
+            #test_global_map_visualization = not_done_masks.unsqueeze(2).unsqueeze(3).cpu() * test_global_map_visualization
 
             rewards = torch.tensor(
                 rewards, dtype=torch.float, device=self.device
@@ -713,9 +713,9 @@ class PPOTrainerNO(BaseRLTrainerNonOracle):
                     projection1 = projection1.squeeze(0).permute(1, 2, 0)
 
                     s = map_config.egocentric_map_size
-                    temp = torch.max(test_global_map_visualization[i][grid_x - math.floor(s/2):grid_x + math.ceil(s/2),grid_y - math.floor(s/2):grid_y + math.ceil(s/2),:], projection1)
-                    test_global_map_visualization[i][grid_x - math.floor(s/2):grid_x + math.ceil(s/2),grid_y - math.floor(s/2):grid_y + math.ceil(s/2),:] = temp
-                    global_map1 = rotate_tensor(test_global_map_visualization[i][grid_x - math.floor(51/2):grid_x + math.ceil(51/2),grid_y - math.floor(51/2):grid_y + math.ceil(51/2),:].permute(2, 1, 0).unsqueeze(0), torch.tensor(-(observations[i]["compass"])).unsqueeze(0)).squeeze(0).permute(1, 2, 0).numpy()
+                    #temp = torch.max(test_global_map_visualization[i][grid_x - math.floor(s/2):grid_x + math.ceil(s/2),grid_y - math.floor(s/2):grid_y + math.ceil(s/2),:], projection1)
+                    #test_global_map_visualization[i][grid_x - math.floor(s/2):grid_x + math.ceil(s/2),grid_y - math.floor(s/2):grid_y + math.ceil(s/2),:] = temp
+                    #global_map1 = rotate_tensor(test_global_map_visualization[i][grid_x - math.floor(51/2):grid_x + math.ceil(51/2),grid_y - math.floor(51/2):grid_y + math.ceil(51/2),:].permute(2, 1, 0).unsqueeze(0), torch.tensor(-(observations[i]["compass"])).unsqueeze(0)).squeeze(0).permute(1, 2, 0).numpy()
                     egocentric_map = torch.sum(test_global_map[i, grid_x - math.floor(51/2):grid_x+math.ceil(51/2), grid_y - math.floor(51/2):grid_y + math.ceil(51/2),:], dim=2)
 
                     frame = observations_to_image(observations[i], egocentric_map.data.cpu().numpy(), projection1.data.numpy(), global_map1, infos[i], actions[i].cpu().numpy())

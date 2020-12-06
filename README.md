@@ -1,16 +1,20 @@
-# MultiON: Benchmarking Semantic Map Memory using Multi-Object Navigation
-This repository hosts the code for the following paper:
-* Saim Wani*, Shivansh Patel*, Unnat Jain*, Angel X. Chang, Manolis Savva, _MultiON: Benchmarking Semantic Map Memory using Multi-Object Navigation_ in NeurIPS, 2020 ([PDF](https://shivanshpatel35.github.io/multi-ON/resources/MultiON.pdf))
+
 
 [![Conference](http://img.shields.io/badge/NeurIPS-2020-4b44ce.svg)](https://nips.cc/)
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![Supports Habitat Lab](https://img.shields.io/static/v1?label=supports&message=Habitat%20Lab&color=informational&link=https://github.com/facebookresearch/habitat-lab)](https://github.com/facebookresearch/habitat-lab)
 
-Project Website: https://shivanshpatel35.github.io/multi-ON/
+# MultiON: Benchmarking Semantic Map Memory using Multi-Object Navigation 
+
+This is a PyTorch implementation of our NeurIPS 2020 paper, [MultiON: Benchmarking Semantic Map Memory using Multi-Object Navigation](https://papers.nips.cc/paper/2020/file/6e01383fd96a17ae51cc3e15447e7533-Paper.pdf).
+
+Project Webpage: https://shivanshpatel35.github.io/multi-ON/
 
 ![](docs/main_visualization.gif)
 
+## Architecture Overview
 
+![](docs/model_architecture.png)
 
 
 ## Installing dependencies:
@@ -51,26 +55,7 @@ cd multiON
 pip install -r requirements.txt
 ```
 
-Download Matterport3D data for Habitat by following the instructions mentioned [here](https://github.com/facebookresearch/habitat-api#data). `data` folder should be placed inside multiON folder.
-
-
-Run the following commands to download multiON dataset and cached oracle occupancy maps:
-```
-cd data
-mkdir datasets
-cd datasets
-wget -O multinav.zip "https://www.dropbox.com/s/src4dy0d5vnbpb8/multinav.zip?dl=0?dl=1"
-unzip multinav.zip && rm multinav.zip
-cd ../
-wget -O objects.zip "https://www.dropbox.com/s/izra9xqcpl3hr66/objects.zip?dl=0?dl=1"
-unzip objects.zip && rm objects.zip
-wget -O default.phys_scene_config.json "https://www.dropbox.com/s/09yi2tsipb26leo/default.phys_scene_config.json?dl=0?dl=1"
-cd ../
-mkdir oracle_maps
-cd oracle_maps
-wget -O map300.pickle "https://www.dropbox.com/s/j25enox7kv76m3y/map300.pickle?dl=0?dl=1"
-cd ../
-```
+### Download Matterport3D scenes and multiON dataset
 
 The Matterport scene dataset and multiON dataset should be in data folder in the following format:
 
@@ -96,6 +81,27 @@ multiON/
           ...
 ```				
 
+Run the following to download multiON dataset and cached oracle occupancy maps:
+```
+mkdir data
+cd data
+mkdir datasets
+cd datasets
+wget -O multinav.zip "https://www.dropbox.com/s/hu6lugw1t766gcp/multinav.zip?dl=0?dl=1"
+unzip multinav.zip && rm multinav.zip
+cd ../
+wget -O objects.zip "https://www.dropbox.com/s/izra9xqcpl3hr66/objects.zip?dl=0?dl=1"
+unzip objects.zip && rm objects.zip
+wget -O default.phys_scene_config.json "https://www.dropbox.com/s/09yi2tsipb26leo/default.phys_scene_config.json?dl=0?dl=1"
+cd ../
+mkdir oracle_maps
+cd oracle_maps
+wget -O map300.pickle "https://www.dropbox.com/s/j25enox7kv76m3y/map300.pickle?dl=0?dl=1"
+cd ../
+```
+
+Download Matterport3D data for Habitat by following the instructions mentioned [here](https://github.com/facebookresearch/habitat-api#data). The scenes should be placed in `data` folder created above.  
+
 ## Usage
 
 ### Pre-trained models
@@ -107,9 +113,9 @@ Download a pre-trained agent model as shown below.
 
 | Agent            | Run                                                                                                  |
 |------------------|:----------------------------------------------------------------------------------------------------:|
-| NoMap            |`wget -O model_checkpoints/ckpt.0.pth "https://www.dropbox.com/s/k431devrru88cgf/ckpt.40.pth?dl=0?dl=1"`|
-| ProjNeural       |`wget -O model_checkpoints/ckpt.1.pth "https://www.dropbox.com/s/ziallf9eoo1i1sy/ckpt.40.pth?dl=0?dl=1"`|
-| ObjRecog         |`wget -O model_checkpoints/ckpt.2.pth "https://www.dropbox.com/s/t1bkrc0qdzc8sgs/ckpt.39.pth?dl=0?dl=1"`|
+| NoMap            |`wget -O model_checkpoints/ckpt.0.pth "https://www.dropbox.com/s/fe3bmw28djpes27/ckpt.39.pth?dl=0?dl=1"`|
+| ProjNeural       |`wget -O model_checkpoints/ckpt.1.pth "https://www.dropbox.com/s/iuf8l022t4h9eca/ckpt.40.pth?dl=0?dl=1"`|
+| ObjRecog         |`wget -O model_checkpoints/ckpt.2.pth "https://www.dropbox.com/s/kbn49t29oy319h1/ckpt.38.pth?dl=0?dl=1"`|
 | OracleEgoMap     |`wget -O model_checkpoints/ckpt.3.pth "https://www.dropbox.com/s/urp4lpozres07f5/ckpt.40.pth?dl=0?dl=1"`|
 | OracleMap        |`wget -O model_checkpoints/ckpt.4.pth "https://www.dropbox.com/s/9io3qyaboobc9e8/ckpt.19.pth?dl=0?dl=1"`|
 
@@ -117,7 +123,7 @@ Download a pre-trained agent model as shown below.
 ### Evaluation
 
 
-Specify the dataset [here](https://github.com/saimwani/multiON/blob/main/configs/tasks/multinav_mp3d.yaml#L48).
+Note that the evaluation will run on the `3_ON` test set by default. To change this, specify the dataset path [here](https://github.com/saimwani/multiON/blob/main/configs/tasks/multinav_mp3d.yaml#L48).
 
 
 To evaluate a pretrained OracleEgoMap (`oracle-ego`) agent, run this from the root folder (`multiON/`):

@@ -3,6 +3,7 @@ This repository hosts the code for the following paper:
 * Saim Wani*, Shivansh Patel*, Unnat Jain*, Angel X. Chang, Manolis Savva, _MultiON: Benchmarking Semantic Map Memory using Multi-Object Navigation_ in NeurIPS, 2020 ([PDF](https://shivanshpatel35.github.io/multi-ON/resources/MultiON.pdf))
 
 [![Conference](http://img.shields.io/badge/NeurIPS-2020-4b44ce.svg)](https://nips.cc/)
+[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![Supports Habitat Lab](https://img.shields.io/static/v1?label=supports&message=Habitat%20Lab&color=informational&link=https://github.com/facebookresearch/habitat-lab)](https://github.com/facebookresearch/habitat-lab)
 
 Project Website: https://shivanshpatel35.github.io/multi-ON/
@@ -36,7 +37,7 @@ git checkout 676e593b953e2f0530f307bc17b6de66cff2e867
 pip install -e .
 ```
 
-Refer to [habitat-sim](https://github.com/facebookresearch/habitat-sim) and [habitat-lab](https://github.com/facebookresearch/habitat-lab) for detailed installation instructions. For installation issues in habitat, either raise an  issue in this repository, or in the corresponding habitat repository.
+We know that roadblocks can come up while installing Habitat, we are here to help! For installation issues in habitat, feel free to raise an issue in this repository, or in the corresponding habitat repository.
 
 
 Install pytorch from https://pytorch.org/ according to your machine configuration. The code is tested on pytorch v1.4.0.
@@ -97,25 +98,6 @@ multiON/
 
 ## Usage
 
-### Training
-
-Agent type for different agents are listed in the table below
-
-| Agent         |  Agent type      |
-|---------------|------------------|
-| NoMap         | `no-map`         |
-| OracleMap     | `oracle`         |
-| OracleEgoMap  | `oracle-ego`     |
-| ProjNeuralmap | `proj-neural`    |
-| ObjRecogMap   | `obj-recog`      |
-
-
-Specify the dataset to train on [here](https://github.com/saimwani/multiON/blob/main/configs/tasks/multinav_mp3d.yaml#L48). Then run the following command: 
-
-```
-python habitat_baselines/run.py --exp-config habitat_baselines/config/multinav/ppo_multinav.yaml --agent-type proj-neural --run-type train
-```
-Note that the intended agent type must be specified.
 ### Pre-trained models
 
 ```
@@ -131,16 +113,43 @@ To download a pre-trained agent model, run it's corresponding command
 | OracleEgoMap     |`wget -O pretrained_models/ckpt3.pth "https://www.dropbox.com/s/urp4lpozres07f5/ckpt.40.pth?dl=0?dl=1"`|
 | OracleMap        |`wget -O pretrained_models/ckpt4.pth "https://www.dropbox.com/s/9io3qyaboobc9e8/ckpt.19.pth?dl=0?dl=1"`|
 
+
 ### Evaluation
 
-To evaluate a pretrained agent model on the 3-ON test dataset, run the following command from the root folder (`multiON/`).
+Agent type for different agents are listed in the table below
+
+| Agent         |  Agent type      |
+|---------------|------------------|
+| NoMap         | `no-map`         |
+| OracleMap     | `oracle`         |
+| OracleEgoMap  | `oracle-ego`     |
+| ProjNeuralmap | `proj-neural`    |
+| ObjRecogMap   | `obj-recog`      |
+
+
+Specify the dataset [here](https://github.com/saimwani/multiON/blob/main/configs/tasks/multinav_mp3d.yaml#L48).
+
+
+To evaluate a pretrained agent model, run the following command from the root folder (`multiON/`).
 
 ```
 python habitat_baselines/run.py --exp-config habitat_baselines/config/multinav/ppo_multinav.yaml --agent-type proj-neural --run-type eval
 ``` 
-Here also, the intended agent type must be specified.
+Note that the intended agent type must be specified.
 
 Average evaluation metrics are printed on the console when evaluation ends. Detailed metrics are placed in `eval/metrics` directory. 
+
+### Training
+
+ Run the following command: 
+
+```
+python habitat_baselines/run.py --exp-config habitat_baselines/config/multinav/ppo_multinav.yaml --agent-type proj-neural --run-type train
+```
+Here also, the intended agent type must be specified.
+
+
+
 
 ## Citation
 >Saim Wani*, Shivansh Patel*, Unnat Jain*, Angel X. Chang, Manolis Savva, 2020. MultiON: Benchmarking Semantic Map Memory using Multi-Object Navigation in Neural Information Processing Systems (NeurIPS). [PDF](https://shivanshpatel35.github.io/multi-ON/resources/MultiON.pdf)

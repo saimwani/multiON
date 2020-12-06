@@ -54,7 +54,7 @@ pip install -r requirements.txt
 Download Matterport3D data for Habitat by following the instructions mentioned [here](https://github.com/facebookresearch/habitat-api#data). `data` folder should be placed inside multiON folder.
 
 
-Run the following commands to download multiON dataset and cached oracle maps:
+Run the following commands to download multiON dataset and cached oracle occupancy maps:
 ```
 cd data
 mkdir datasets
@@ -101,53 +101,53 @@ multiON/
 ### Pre-trained models
 
 ```
-mkdir pretrained_models
+mkdir model_checkpoints
 ``` 
-To download a pre-trained agent model, run it's corresponding command
+Download a pre-trained agent model as shown below.
 
 | Agent            | Run                                                                                                  |
 |------------------|:----------------------------------------------------------------------------------------------------:|
-| NoMap            |`wget -O pretrained_models/ckpt0.pth "https://www.dropbox.com/s/k431devrru88cgf/ckpt.40.pth?dl=0?dl=1"`|
-| ProjNeural       |`wget -O pretrained_models/ckpt1.pth "https://www.dropbox.com/s/ziallf9eoo1i1sy/ckpt.40.pth?dl=0?dl=1"`|
-| ObjRecog         |`wget -O pretrained_models/ckpt2.pth "https://www.dropbox.com/s/t1bkrc0qdzc8sgs/ckpt.39.pth?dl=0?dl=1"`|
-| OracleEgoMap     |`wget -O pretrained_models/ckpt3.pth "https://www.dropbox.com/s/urp4lpozres07f5/ckpt.40.pth?dl=0?dl=1"`|
-| OracleMap        |`wget -O pretrained_models/ckpt4.pth "https://www.dropbox.com/s/9io3qyaboobc9e8/ckpt.19.pth?dl=0?dl=1"`|
+| NoMap            |`wget -O model_checkpoints/ckpt.0.pth "https://www.dropbox.com/s/k431devrru88cgf/ckpt.40.pth?dl=0?dl=1"`|
+| ProjNeural       |`wget -O model_checkpoints/ckpt.1.pth "https://www.dropbox.com/s/ziallf9eoo1i1sy/ckpt.40.pth?dl=0?dl=1"`|
+| ObjRecog         |`wget -O model_checkpoints/ckpt.2.pth "https://www.dropbox.com/s/t1bkrc0qdzc8sgs/ckpt.39.pth?dl=0?dl=1"`|
+| OracleEgoMap     |`wget -O model_checkpoints/ckpt.3.pth "https://www.dropbox.com/s/urp4lpozres07f5/ckpt.40.pth?dl=0?dl=1"`|
+| OracleMap        |`wget -O model_checkpoints/ckpt.4.pth "https://www.dropbox.com/s/9io3qyaboobc9e8/ckpt.19.pth?dl=0?dl=1"`|
 
 
 ### Evaluation
 
-Agent type for different agents are listed in the table below
+
+Specify the dataset [here](https://github.com/saimwani/multiON/blob/main/configs/tasks/multinav_mp3d.yaml#L48).
+
+
+To evaluate a pretrained OracleEgoMap (`oracle-ego`) agent, run this from the root folder (`multiON/`):
+
+```
+python habitat_baselines/run.py --exp-config habitat_baselines/config/multinav/ppo_multinav.yaml --agent-type oracle-ego --run-type eval
+``` 
+
+For other agent types, the `--agent-type` argument should be changed according to this table:
+
 
 | Agent         |  Agent type      |
 |---------------|------------------|
-| NoMap         | `no-map`         |
+| NoMap(RNN)    | `no-map`         |
 | OracleMap     | `oracle`         |
 | OracleEgoMap  | `oracle-ego`     |
 | ProjNeuralmap | `proj-neural`    |
 | ObjRecogMap   | `obj-recog`      |
 
 
-Specify the dataset [here](https://github.com/saimwani/multiON/blob/main/configs/tasks/multinav_mp3d.yaml#L48).
-
-
-To evaluate a pretrained agent model, run the following command from the root folder (`multiON/`).
-
-```
-python habitat_baselines/run.py --exp-config habitat_baselines/config/multinav/ppo_multinav.yaml --agent-type proj-neural --run-type eval
-``` 
-Note that the intended agent type must be specified.
-
 Average evaluation metrics are printed on the console when evaluation ends. Detailed metrics are placed in `eval/metrics` directory. 
 
 ### Training
 
- Run the following command: 
+For training an OracleEgoMap (`oracle-ego`) agent, run this from the root directory: 
 
 ```
-python habitat_baselines/run.py --exp-config habitat_baselines/config/multinav/ppo_multinav.yaml --agent-type proj-neural --run-type train
+python habitat_baselines/run.py --exp-config habitat_baselines/config/multinav/ppo_multinav.yaml --agent-type oracle-ego --run-type train
 ```
-Here also, the intended agent type must be specified.
-
+For other agent types, the `--agent-type` argument would change accordingly. 
 
 
 

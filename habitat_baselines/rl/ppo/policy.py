@@ -314,18 +314,19 @@ class BaselineNetNonOracle(Net):
         
         if not self.is_blind:
             perception_embed = self.visual_encoder(observations)
+        # interpolated_perception_embed = F.interpolate(perception_embed, scale_factor=256./28., mode='bilinear')
         projection = self.projection.forward(perception_embed, observations['depth'] * 10, -(observations["compass"]))
         perception_embed = self.image_features_linear(self.flatten(perception_embed))
         grid_x, grid_y = self.to_grid.get_grid_coords(observations['gps'])
+        # grid_x_coord, grid_y_coord = grid_x.type(torch.uint8), grid_y.type(torch.uint8)
         bs = global_map.shape[0]
         ##forward pass specific
         if ev == 0:
-            self.full_global_map = self.full_global_map * masks.unsqueeze(1).unsqueeze(1)
-            if torch.cuda.is_available():
-                with torch.cuda.device(self.device):
-                    agent_view = torch.cuda.FloatTensor(bs, self.global_map_depth, self.global_map_size, self.global_map_size).fill_(0)
-            else:
-                agent_view = torch.FloatTensor(bs, self.global_map_depth, self.global_map_size, self.global_map_size).to(self.device).fill_(0)
+            self.full_global_map[:bs, :, :, :] = self.full_global_map[:bs, :, :, :] * masks.unsqueeze(1).unsqueeze(1)
+            if bs != 18:
+                self.full_global_map[bs:, :, :, :] = self.full_global_map[bs:, :, :, :] * 0
+            with torch.cuda.device(1):
+                agent_view = torch.cuda.FloatTensor(bs, self.global_map_depth, self.global_map_size, self.global_map_size).fill_(0)
             agent_view[:, :, 
                 self.global_map_size//2 - math.floor(self.egocentric_map_size/2):self.global_map_size//2 + math.ceil(self.egocentric_map_size/2), 
                 self.global_map_size//2 - math.floor(self.egocentric_map_size/2):self.global_map_size//2 + math.ceil(self.egocentric_map_size/2)
@@ -339,7 +340,7 @@ class BaselineNetNonOracle(Net):
             rot_mat, trans_mat = get_grid(st_pose, agent_view.size(), self.device)
             rotated = F.grid_sample(agent_view, rot_mat)
             translated = F.grid_sample(rotated, trans_mat)
-            
+            self.full_global_map[:bs, :, :, :] = torch.max(self.full_global_map[:bs, :, :, :], translated.permute(0, 2, 3, 1))
             st_pose_retrieval = torch.cat(
                 [
                     (grid_y.unsqueeze(1)-(self.global_map_size//2))/(self.global_map_size//2),
@@ -349,16 +350,7 @@ class BaselineNetNonOracle(Net):
                     dim=1
                 )
             _, trans_mat_retrieval = get_grid(st_pose_retrieval, agent_view.size(), self.device)
-
-            translated_retrieval_eval = F.grid_sample(self.full_global_map.permute(0, 3, 1, 2), trans_mat_retrieval)
-            translated_retrieval_eval = translated_retrieval_eval[:,:,
-                self.global_map_size//2-math.floor(51/2):self.global_map_size//2+math.ceil(51/2), 
-                self.global_map_size//2-math.floor(51/2):self.global_map_size//2+math.ceil(51/2)
-            ]
-            final_retrieval_eval = self.rotate_tensor.forward(translated_retrieval_eval, observations["compass"])
-
-            self.full_global_map = torch.max(self.full_global_map, translated.permute(0, 2, 3, 1))
-            translated_retrieval = F.grid_sample(self.full_global_map.permute(0, 3, 1, 2), trans_mat_retrieval)
+            translated_retrieval = F.grid_sample(self.full_global_map[:bs, :, :, :].permute(0, 3, 1, 2), trans_mat_retrieval)
             translated_retrieval = translated_retrieval[:,:,
                 self.global_map_size//2-math.floor(51/2):self.global_map_size//2+math.ceil(51/2), 
                 self.global_map_size//2-math.floor(51/2):self.global_map_size//2+math.ceil(51/2)
@@ -372,14 +364,11 @@ class BaselineNetNonOracle(Net):
 
             x = torch.cat((perception_embed, global_map_embed, goal_embed, action_embedding), dim = 1)
             x, rnn_hidden_states = self.state_encoder(x, rnn_hidden_states, masks)
-            return x, rnn_hidden_states, final_retrieval_eval.permute(0, 2, 3, 1)
-        else:   ## during eval_actions
+            return x, rnn_hidden_states, final_retrieval.permute(0, 2, 3, 1)
+        else: 
             global_map = global_map * masks.unsqueeze(1).unsqueeze(1)  ##verify
-            if torch.cuda.is_available():
-                with torch.cuda.device(self.device):
-                    agent_view = torch.cuda.FloatTensor(bs, self.global_map_depth, 51, 51).fill_(0)
-            else:
-                agent_view = torch.FloatTensor(bs, self.global_map_depth, 51, 51).to(self.device).fill_(0)
+            with torch.cuda.device(1):
+                agent_view = torch.cuda.FloatTensor(bs, self.global_map_depth, 51, 51).fill_(0)
             agent_view[:, :, 
                 51//2 - math.floor(self.egocentric_map_size/2):51//2 + math.ceil(self.egocentric_map_size/2), 
                 51//2 - math.floor(self.egocentric_map_size/2):51//2 + math.ceil(self.egocentric_map_size/2)

@@ -1,15 +1,16 @@
-# MultiON: Benchmarking Semantic Map Memory using Multi-Object Navigation
-This repository hosts the code for the following paper:
-* Saim Wani*, Shivansh Patel*, Unnat Jain*, Angel X. Chang, Manolis Savva, _MultiON: Benchmarking Semantic Map Memory using Multi-Object Navigation_ in NeurIPS, 2020 ([PDF](https://shivanshpatel35.github.io/multi-ON/resources/MultiON.pdf))
+# MultiON: Benchmarking Semantic Map Memory using Multi-Object Navigation 
 
 [![Conference](http://img.shields.io/badge/NeurIPS-2020-4b44ce.svg)](https://nips.cc/)
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![Supports Habitat Lab](https://img.shields.io/static/v1?label=supports&message=Habitat%20Lab&color=informational&link=https://github.com/facebookresearch/habitat-lab)](https://github.com/facebookresearch/habitat-lab)
 
-Project Website: https://shivanshpatel35.github.io/multi-ON/
+This is a PyTorch implementation of our NeurIPS 2020 paper, [MultiON: Benchmarking Semantic Map Memory using Multi-Object Navigation](https://papers.nips.cc/paper/2020/file/6e01383fd96a17ae51cc3e15447e7533-Paper.pdf).
+
+Project Webpage: https://shivanshpatel35.github.io/multi-ON/
 
 ![](docs/main_visualization.gif)
 
+### Architecture Overview
 
 
 

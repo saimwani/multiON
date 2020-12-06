@@ -51,26 +51,7 @@ cd multiON
 pip install -r requirements.txt
 ```
 
-Download Matterport3D data for Habitat by following the instructions mentioned [here](https://github.com/facebookresearch/habitat-api#data). `data` folder should be placed inside multiON folder.
-
-
-Run the following commands to download multiON dataset and cached oracle occupancy maps:
-```
-cd data
-mkdir datasets
-cd datasets
-wget -O multinav.zip "https://www.dropbox.com/s/hu6lugw1t766gcp/multinav.zip?dl=0?dl=1"
-unzip multinav.zip && rm multinav.zip
-cd ../
-wget -O objects.zip "https://www.dropbox.com/s/izra9xqcpl3hr66/objects.zip?dl=0?dl=1"
-unzip objects.zip && rm objects.zip
-wget -O default.phys_scene_config.json "https://www.dropbox.com/s/09yi2tsipb26leo/default.phys_scene_config.json?dl=0?dl=1"
-cd ../
-mkdir oracle_maps
-cd oracle_maps
-wget -O map300.pickle "https://www.dropbox.com/s/j25enox7kv76m3y/map300.pickle?dl=0?dl=1"
-cd ../
-```
+### Download Matterport3D scenes and multiON dataset
 
 The Matterport scene dataset and multiON dataset should be in data folder in the following format:
 
@@ -95,6 +76,27 @@ multiON/
         1_ON
           ...
 ```				
+
+Run the following to download multiON dataset and cached oracle occupancy maps:
+```
+mkdir data
+cd data
+mkdir datasets
+cd datasets
+wget -O multinav.zip "https://www.dropbox.com/s/hu6lugw1t766gcp/multinav.zip?dl=0?dl=1"
+unzip multinav.zip && rm multinav.zip
+cd ../
+wget -O objects.zip "https://www.dropbox.com/s/izra9xqcpl3hr66/objects.zip?dl=0?dl=1"
+unzip objects.zip && rm objects.zip
+wget -O default.phys_scene_config.json "https://www.dropbox.com/s/09yi2tsipb26leo/default.phys_scene_config.json?dl=0?dl=1"
+cd ../
+mkdir oracle_maps
+cd oracle_maps
+wget -O map300.pickle "https://www.dropbox.com/s/j25enox7kv76m3y/map300.pickle?dl=0?dl=1"
+cd ../
+```
+
+Download Matterport3D data for Habitat by following the instructions mentioned [here](https://github.com/facebookresearch/habitat-api#data). The scenes should be placed in `data` folder created above.  
 
 ## Usage
 

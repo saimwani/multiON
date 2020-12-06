@@ -325,8 +325,11 @@ class BaselineNetNonOracle(Net):
             self.full_global_map[:bs, :, :, :] = self.full_global_map[:bs, :, :, :] * masks.unsqueeze(1).unsqueeze(1)
             if bs != 18:
                 self.full_global_map[bs:, :, :, :] = self.full_global_map[bs:, :, :, :] * 0
-            with torch.cuda.device(1):
-                agent_view = torch.cuda.FloatTensor(bs, self.global_map_depth, self.global_map_size, self.global_map_size).fill_(0)
+            if torch.cuda.is_available():
+                with torch.cuda.device(1):
+                    agent_view = torch.cuda.FloatTensor(bs, self.global_map_depth, self.global_map_size, self.global_map_size).fill_(0)
+            else:
+                agent_view = torch.FloatTensor(bs, self.global_map_depth, self.global_map_size, self.global_map_size).to(self.device).fill_(0)
             agent_view[:, :, 
                 self.global_map_size//2 - math.floor(self.egocentric_map_size/2):self.global_map_size//2 + math.ceil(self.egocentric_map_size/2), 
                 self.global_map_size//2 - math.floor(self.egocentric_map_size/2):self.global_map_size//2 + math.ceil(self.egocentric_map_size/2)

@@ -322,7 +322,7 @@ class BaselineNetNonOracle(Net):
         if ev == 0:
             self.full_global_map = self.full_global_map * masks.unsqueeze(1).unsqueeze(1)
             if torch.cuda.is_available():
-                with torch.cuda.device(1):
+                with torch.cuda.device(self.device):
                     agent_view = torch.cuda.FloatTensor(bs, self.global_map_depth, self.global_map_size, self.global_map_size).fill_(0)
             else:
                 agent_view = torch.FloatTensor(bs, self.global_map_depth, self.global_map_size, self.global_map_size).to(self.device).fill_(0)
@@ -376,7 +376,7 @@ class BaselineNetNonOracle(Net):
         else:   ## during eval_actions
             global_map = global_map * masks.unsqueeze(1).unsqueeze(1)  ##verify
             if torch.cuda.is_available():
-                with torch.cuda.device(1):
+                with torch.cuda.device(self.device):
                     agent_view = torch.cuda.FloatTensor(bs, self.global_map_depth, 51, 51).fill_(0)
             else:
                 agent_view = torch.FloatTensor(bs, self.global_map_depth, 51, 51).to(self.device).fill_(0)

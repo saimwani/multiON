@@ -59,7 +59,7 @@ Run the following commands to download multiON dataset and cached oracle occupan
 cd data
 mkdir datasets
 cd datasets
-wget -O multinav.zip "https://www.dropbox.com/s/src4dy0d5vnbpb8/multinav.zip?dl=0?dl=1"
+wget -O multinav.zip "https://www.dropbox.com/s/hu6lugw1t766gcp/multinav.zip?dl=0?dl=1"
 unzip multinav.zip && rm multinav.zip
 cd ../
 wget -O objects.zip "https://www.dropbox.com/s/izra9xqcpl3hr66/objects.zip?dl=0?dl=1"

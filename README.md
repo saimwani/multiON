@@ -10,8 +10,9 @@ Project Webpage: https://shivanshpatel35.github.io/multi-ON/
 
 ![](docs/main_visualization.gif)
 
-### Architecture Overview
+## Architecture Overview
 
+![](docs/model_architecture.png)
 
 
 ## Installing dependencies:

@@ -4,3 +4,5 @@ matplotlib==3.2.1
 ifcfg==0.21
 opencv_python==3.4.4.19
 attr==0.3.1
+einops==0.2.0
+tensorboard

@@ -45,5 +45,5 @@ TASK:
 DATASET:
   TYPE: MultiNav-v1
   SPLIT: train
-  DATA_PATH: "data/datasets/multinav/1_ON/{split}/{split}.json.gz"
+  DATA_PATH: "data/datasets/multinav/3_ON/{split}/{split}.json.gz"
   SCENES_DIR: "data/scene_datasets/"

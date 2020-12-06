@@ -77,8 +77,6 @@ def run_exp(exp_config: str, run_type: str, agent_type: str, opts=None) -> None:
         trainer_init = baseline_registry.get_trainer("non-oracle")
         config.defrost()
         config.RL.PPO.hidden_size = 512
-        if agent_type == "obj-recog":
-            config.TASK_CONFIG.TASK.append('FOW_MAP')
         config.freeze()
         
     assert trainer_init is not None, f"{config.TRAINER_NAME} is not supported"

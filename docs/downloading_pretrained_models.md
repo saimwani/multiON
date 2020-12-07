@@ -1,4 +1,4 @@
-# Downloading pre-traied models
+# Downloading pre-trained models
 
 Pre-trained model checkpoints to be evaluated should be placed inside `model_checkpoints` folder under the root directory (`multiON/`). If you've successfully run the `download_multion_data.sh` script, the OracleEgoMap checkpoint would already be downloaded and placed inside the `model_checkpoints` directory. For downloading pre-trained models, start by creating a `model_checkpoints` directory:
 

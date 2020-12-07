@@ -57,7 +57,7 @@ pip install -r requirements.txt
 
 ### Downloading data and checkpoints
 
-To evaluate pre-trained models and train new models, you will need to download the MultiON dataset, including objects inserted into the scenes, and model checkpoints. Running `download_multion_data.sh` from the root directory (`multiON/`) will download the data and extract it to appropriate directories. Note that you are still required to download Matterport3D scenes after you run the script (see section on **Download Matterport3D scenes** below). Running the script will download the OracleEgoMap (`oracle-ego`) pre-trained model by default. If you'd like to evaluate other pre-trained models, see this.
+To evaluate pre-trained models and train new models, you will need to download the MultiON dataset, including objects inserted into the scenes, and model checkpoints. Running `download_multion_data.sh` from the root directory (`multiON/`) will download the data and extract it to appropriate directories. Note that you are still required to download Matterport3D scenes after you run the script (see section on **Download Matterport3D scenes** below). Running the script will download the OracleEgoMap (`oracle-ego`) pre-trained model by default. If you'd like to evaluate other pre-trained models, [see this](docs/downloading_pretrained_models.md).
 
 ```
 bash download_multion_data.sh

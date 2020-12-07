@@ -10,7 +10,7 @@ Download the relevant pre-trained model checkpoint as shown here:
 
 | Agent            | Run                                                                                                  |
 |------------------|:----------------------------------------------------------------------------------------------------:|
-| NoMap            |`wget -O model_checkpoints/ckpt.0.pth "https://www.dropbox.com/s/fe3bmw28djpes27/ckpt.39.pth?dl=0?dl=1"`|
+| NoMap(RNN)            |`wget -O model_checkpoints/ckpt.0.pth "https://www.dropbox.com/s/fe3bmw28djpes27/ckpt.39.pth?dl=0?dl=1"`|
 | ProjNeural       |`wget -O model_checkpoints/ckpt.1.pth "https://www.dropbox.com/s/iuf8l022t4h9eca/ckpt.40.pth?dl=0?dl=1"`|
 | ObjRecog         |`wget -O model_checkpoints/ckpt.2.pth "https://www.dropbox.com/s/kbn49t29oy319h1/ckpt.38.pth?dl=0?dl=1"`|
 | OracleEgoMap     |`wget -O model_checkpoints/ckpt.3.pth "https://www.dropbox.com/s/urp4lpozres07f5/ckpt.40.pth?dl=0?dl=1"`|

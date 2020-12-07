@@ -18,9 +18,12 @@ Project Webpage: https://shivanshpatel35.github.io/multi-ON/
 
 
 ## Installing dependencies:
-This code is tested on ubuntu 18.04, python 3.6.10 and CUDA V9.1.85.
 
-This code uses older version of [habitat-sim](https://github.com/facebookresearch/habitat-sim) and [habitat-lab](https://github.com/facebookresearch/habitat-lab). Install them by running the following commands:
+This code is tested on python 3.6.10, pytorch v1.4.0 and CUDA V9.1.85.
+
+Install pytorch from https://pytorch.org/ according to your machine configuration.
+
+This code uses older versions of [habitat-sim](https://github.com/facebookresearch/habitat-sim) and [habitat-lab](https://github.com/facebookresearch/habitat-lab). Install them by running the following commands:
 
 #### Installing habitat-sim:
 
@@ -29,7 +32,7 @@ git clone https://github.com/facebookresearch/habitat-sim.git
 cd habitat-sim 
 git checkout ae6ba1cdc772f7a5dedd31cbf9a5b77f6de3ff0f
 pip install -r requirements.txt; 
-python setup.py install --headless # (for headless machines)
+python setup.py install --headless # (for headless machines with GPU)
 python setup.py install # (for machines with display attached)
 ```
 
@@ -44,7 +47,6 @@ pip install -e .
 We know that roadblocks can come up while installing Habitat, we are here to help! For installation issues in habitat, feel free to raise an issue in this repository, or in the corresponding habitat repository.
 
 
-Install pytorch from https://pytorch.org/ according to your machine configuration. The code is tested on pytorch v1.4.0.
 
 ## Setup
 Clone the repository and install the requirements:

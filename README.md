@@ -129,7 +129,7 @@ Download a pre-trained agent model as shown below.
 
 | Agent            | Run                                                                                                  |
 |------------------|:----------------------------------------------------------------------------------------------------:|
-| NoMap            |`wget -O model_checkpoints/ckpt.0.pth "http://aspis.cmpt.sfu.ca/projects/multion/model_checkpoints/ckpt.0.pth"`|
+| NoMap(RNN)           |`wget -O model_checkpoints/ckpt.0.pth "http://aspis.cmpt.sfu.ca/projects/multion/model_checkpoints/ckpt.0.pth"`|
 | ProjNeural       |`wget -O model_checkpoints/ckpt.1.pth "http://aspis.cmpt.sfu.ca/projects/multion/model_checkpoints/ckpt.1.pth"`|
 | ObjRecog         |`wget -O model_checkpoints/ckpt.2.pth "http://aspis.cmpt.sfu.ca/projects/multion/model_checkpoints/ckpt.2.pth"`|
 | OracleEgoMap     |`wget -O model_checkpoints/ckpt.3.pth "http://aspis.cmpt.sfu.ca/projects/multion/model_checkpoints/ckpt.3.pth"`|
